@@ -63,7 +63,7 @@ export class ChatComponent implements OnInit,OnChanges,OnDestroy {
     }
     if(this.isInGroup && this.isConnected===false) {
       this.stompClient = Stomp.over(()=>{
-        return new SockJS('http://localhost:8080/ws',headers)
+        return new SockJS('http://localhost:9090/ws',headers)
       });
       this.stompClient.connect(headers, (frame) => {
         console.log('Connected: ' + frame);

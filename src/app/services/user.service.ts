@@ -14,10 +14,14 @@ import {InGameRoles} from '../domain/dto/InGameRoles';
 })
 export class UserService {
 
-  changePasswordUrl = 'http://localhost:8080/api/v1/auth/password-change';
-  deleteUserUrl = 'http://localhost:8080/api/v1/auth/delete-user';
-  editUserUrl = 'http://localhost:8080/api/v1/users/edit'
-  baseURL = 'http://localhost:8080/api/v1/users'
+  changePasswordUrl = 'http://localhost:9090/api/v1/auth/password-change';
+  deleteUserUrl = 'http://localhost:9090/api/v1/auth/delete-user';
+  editUserUrl = 'http://localhost:9090/api/v1/users/edit'
+  baseURL = 'http://localhost:9090/api/v1/users'
+  reportUrl = 'http://localhost:9090/api/v1/reports'
+  adminUrl = 'http://localhost:9090/api/v1/admin'
+  friendsUrl = 'http://localhost:9090/api/v1/friends'
+  usersGroupUrl = "http://localhost:9090/api/v1/userGroups"
   reportedUsers:ReportedUser[];
 
   private pictureSubject = new Subject<any>();
@@ -45,20 +49,20 @@ export class UserService {
     return this.http.delete(this.deleteUserUrl);
   }
   getUserGroups() {
-    return this.http.get<User>(this.baseURL+'/my-groups')
+    return this.http.get<User>(this.usersGroupUrl+'/all')
   }
   getUserGroupsByGame(gameId:number){
-    return this.http.get<User>(this.baseURL+'/my-groups/'+gameId)
+    return this.http.get<User>(this.usersGroupUrl+'/my-groups/'+gameId)
   }
 
   joinGroup(groupId:number,inGameRole:InGameRoles){
     console.log(inGameRole+"-ROLA")
-    return this.http.patch<User>(this.baseURL + '/joinGroup/' + groupId,inGameRole,{ observe: 'response' });
+    return this.http.patch<User>(this.usersGroupUrl + '/join/' + groupId,inGameRole,{ observe: 'response' });
   }
 
 
   leaveGroup(groupId: number) {
-    const url = this.baseURL + '/my-groups/' + groupId;
+    const url = this.usersGroupUrl + '/exit/' + groupId;
 
     return this.http.delete(url);
   }
@@ -119,19 +123,19 @@ export class UserService {
   }
 
   reportUser(report:Report,userId:number){
-    return this.http.put(this.baseURL+'/report/'+userId,report)
+    return this.http.put(this.reportUrl+'/report/'+userId,report)
   }
 
   getBannedUsers(){
-    return this.http.get(this.baseURL+'/banned')
+    return this.http.get(this.adminUrl+'/banned')
   }
 
   unbanUser(id:number){
-    return this.http.get(this.baseURL+'/unban/'+id)
+    return this.http.get(this.adminUrl+'/unban/'+id)
   }
 
   banUser(id:number, reason:string){
-    return this.http.put(this.baseURL+'/banUser',{id,reason})
+    return this.http.put(this.adminUrl+'/banUser',{id,reason})
   }
 
   getUserChatLogs(userId:number){
@@ -139,41 +143,41 @@ export class UserService {
   }
 
   getReportedUsers(){
-    return this.http.get(this.baseURL+'/reportedUsers')
+    return this.http.get(this.adminUrl+'/reportedUsers')
   }
   deleteReports(user){
-    return this.http.delete(this.baseURL+'/deleteReports/'+user.id)
+    return this.http.delete(this.adminUrl+'/deleteReports/'+user.id)
   }
 
   sendFriendRequest(user){
-    return this.http.post(this.baseURL+'/sendFriendRequest/'+user.id,{})
+    return this.http.post(this.friendsUrl+'/sendFriendRequest/'+user.id,{})
   }
 
   getFriendRequests(){
-    return this.http.get(this.baseURL+'/loadFriendRequests')
+    return this.http.get(this.friendsUrl+'/loadFriendRequests')
   }
 
   acceptFriendRequest(requestId:number){
-    return this.http.put(this.baseURL+'/acceptFriendRequest/'+requestId,{})
+    return this.http.put(this.friendsUrl+'/acceptFriendRequest/'+requestId,{})
   }
   declineFriendRequest(requestId:number){
-    return this.http.put(this.baseURL+'/declineFriendRequest/'+requestId,{})
+    return this.http.put(this.friendsUrl+'/declineFriendRequest/'+requestId,{})
   }
 
   getFriends(){
-    return this.http.get(this.baseURL+'/loadFriends')
+    return this.http.get(this.friendsUrl+'/loadFriends')
   }
 
   setMessagesAsRead(chatId:number){
-    return this.http.patch("http://localhost:8080/api/v1/messageRead/"+chatId,{})
+    return this.http.patch("http://localhost:9090/api/v1/messageRead/"+chatId,{})
   }
 
   countUnreadMessages(){
-    return this.http.get("http://localhost:8080/api/v1/unreadMessages")
+    return this.http.get("http://localhost:9090/api/v1/unreadMessages")
   }
 
   getChatMessages(chatId){
-    return this.http.get("http://localhost:8080/api/v1/chat/"+chatId)
+    return this.http.get("http://localhost:9090/api/v1/chat/"+chatId)
   }
 
 

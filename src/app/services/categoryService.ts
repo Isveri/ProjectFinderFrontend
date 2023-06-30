@@ -7,7 +7,7 @@ import { Observable, Subject } from 'rxjs';
 @Injectable({providedIn: 'root'})
 export class CategoryService {
 
-  url = 'http://localhost:8080/api/v1/category';
+  url = 'http://localhost:9090/api/v1/search';
   chosenGame:GameDTO = new GameDTO();
   private gameSubject = new Subject<any>();
   allGames:GameDTO[] = [];
@@ -36,7 +36,7 @@ export class CategoryService {
   }
 
   getCategoriesByGame(game:string): Observable<Category[]>{
-    return this.http.get<Category[]>(this.url+'/all/'+game)
+    return this.http.get<Category[]>(this.url+'/categories/'+game)
   }
   lookForUpdate():Observable<any>{
     return this.gameSubject.asObservable();

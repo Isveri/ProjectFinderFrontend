@@ -11,7 +11,7 @@ import {SearchCriteria} from '../domain/SearchCriteria';
   providedIn: 'root'
 })
 export class GroupRoomService {
-  private baseUrl = 'http://localhost:8080/api/v1';
+  private baseUrl = 'http://localhost:9090/api/v1';
 
   constructor(private httpClient: HttpClient) { }
 

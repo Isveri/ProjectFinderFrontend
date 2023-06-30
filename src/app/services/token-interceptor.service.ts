@@ -19,7 +19,7 @@ export class TokenInterceptorService implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    const loginEndpoint = 'http://localhost:8080/api/v1/auth/login';
+    const loginEndpoint = 'http://localhost:9090/api/v1/auth/login';
 
     if (request.urlWithParams.endsWith(loginEndpoint)) {
       return next.handle(request);

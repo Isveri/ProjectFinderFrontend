@@ -8,7 +8,7 @@ import {Friend} from '../domain/Friend';
 @Injectable({providedIn: 'root'})
 export class ProfilePicturesService {
 
-  url = 'http://localhost:8080/api/v1/profilePicture';
+  url = 'http://localhost:9090/api/v1/users/profilePicture';
   usersProfilePictures = new Map();
 
   constructor(private http: HttpClient, private userService:UserService) {

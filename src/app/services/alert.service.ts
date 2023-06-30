@@ -23,7 +23,7 @@ export class AlertService {
 
   getSource(){
       if (this.source == null) {
-        this.source = new EventSource('http://localhost:8080/api/v1/notify/info?token=' + this.authService.getToken());
+        this.source = new EventSource('http://localhost:9090/api/v1/notify/info?token=' + this.authService.getToken());
         return this.source;
       } else {
         return this.source;

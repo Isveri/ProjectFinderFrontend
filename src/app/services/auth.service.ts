@@ -7,9 +7,9 @@ import {EmailDto} from '../domain/dto/EmailDto';
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
-  baseUrl = 'http://localhost:8080/api/v1/auth';
-  authUrl = 'http://localhost:8080/api/v1/auth/login';
-  registerUrl = 'http://localhost:8080/api/v1/auth/new-account';
+  baseUrl = 'http://localhost:9090/api/v1/auth';
+  authUrl = 'http://localhost:9090/api/v1/auth/login';
+  registerUrl = 'http://localhost:9090/api/v1/auth/register';
 
   constructor(private http: HttpClient) {
   }

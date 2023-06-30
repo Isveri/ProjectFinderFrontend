@@ -6,7 +6,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class PlatformServiceService {
 
-  baseUrl = 'http://localhost:8080/api/v1/platform';
+  baseUrl = 'http://localhost:9090/api/v1/platform';
 
   constructor(private http: HttpClient) { }
 

@@ -5,7 +5,7 @@ import {UserService} from './user.service';
 @Injectable({providedIn: 'root'})
 export class NotificationService {
 
-  url = 'http://localhost:8080/api/v1/notification';
+  url = 'http://localhost:9090/api/v1/notification';
 
   constructor(private http: HttpClient, private userService: UserService) {
   }
