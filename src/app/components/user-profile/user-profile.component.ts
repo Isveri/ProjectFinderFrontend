@@ -159,7 +159,7 @@ export class UserProfileComponent implements OnInit {
     if (this.buttonFunction === 'Edit') {
       this.enableInputs();
       this.isEditOff = false;
-      this.userToEdit?.inGameRoles.forEach(val => this.tempRoleList.push(Object.assign({}, val)))
+      this.userToEdit?.inGameRoles?.forEach(val => this.tempRoleList.push(Object.assign({}, val)))
       this.buttonFunction = 'Save changes';
     } else {
       this.editProfile();
@@ -219,14 +219,14 @@ export class UserProfileComponent implements OnInit {
 
   public editRole(role: InGameRoles) {
     if (this.tableContains(this.userToEdit?.inGameRoles, role)) {
-      const index = this.userToEdit?.inGameRoles.findIndex((o) => {
+      const index = this.userToEdit?.inGameRoles?.findIndex((o) => {
         return o.id === role.id
       });
       if (index > -1) {
-        this.userToEdit?.inGameRoles.splice(index, 1);
+        this.userToEdit?.inGameRoles?.splice(index, 1);
       }
     } else {
-      this.userToEdit?.inGameRoles.push(role);
+      this.userToEdit?.inGameRoles?.push(role);
     }
   }
 
