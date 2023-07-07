@@ -28,7 +28,7 @@
                       <p class=" mb-1">{{groupRoom.description}}</p>
                       <button class="btn btn-primary"  (click)="navigateToGroup(groupRoom)">Show Group</button>
                       <button class="btn btn-danger" (click)="removeGroup(groupRoom.id)"  *ngIf="groupRoom.groupLeader.id == currentUser?.id || currentUser?.role?.name=='ROLE_ADMIN'" >Delete</button>
-                      <div *ngIf="groupRoom.groupLeader.id == currentUser?.id || currentUser?.role?.name=='ROLE_ADMIN'">
+                      <div *ngIf="groupRoom?.groupLeader?.id == currentUser?.id || currentUser?.role?.name=='ROLE_ADMIN'">
                         <mat-slide-toggle class="mt-2" [checked]="!groupRoom.open" (change)="togglePrivate(groupRoom)" >Private </mat-slide-toggle>
                       </div>
                     </div>

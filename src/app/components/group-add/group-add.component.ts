@@ -10,6 +10,7 @@ import {GameDTO} from '../../domain/dto/GameDTO';
 import {cityList} from '../../providers/Cities';
 import {InGameRoles} from '../../domain/dto/InGameRoles';
 import {TakenInGameRole} from '../../domain/TakenInGameRole';
+import {take} from "rxjs";
 @Component({
   selector: 'app-group-add',
   templateUrl: './group-add.component.html',
@@ -18,7 +19,6 @@ import {TakenInGameRole} from '../../domain/TakenInGameRole';
 export class GroupAddComponent implements OnInit {
 
   groupAddFormGroup: FormGroup;
-  fieldTextType: boolean;
   chosenGame:GameDTO;
   chosenCategory:Category;
   categories: Category[];
@@ -102,13 +102,16 @@ export class GroupAddComponent implements OnInit {
     groupRoom.city = this.city;
     groupRoom.open = this.isOpen;
     groupRoom.inGameRolesActive = this.isActivated;
+    groupRoom.takenInGameRoles = [null,null];
 
-    const takenInGameRole = new TakenInGameRole();
-    takenInGameRole.inGameRole = this.tempRole;
-    const partnerRole = new TakenInGameRole();
-    partnerRole.inGameRole = this.partnerRole;
-    groupRoom.takenInGameRoles = [takenInGameRole,partnerRole];
-    console.log(groupRoom)
+    if(this.isActivated) {
+      const takenInGameRole = new TakenInGameRole();
+      takenInGameRole.inGameRole = this.tempRole;
+      const partnerRole = new TakenInGameRole();
+      partnerRole.inGameRole = this.partnerRole;
+      groupRoom.takenInGameRoles = [takenInGameRole, partnerRole];
+      console.log(groupRoom)
+    }
 
     return groupRoom;
   }
@@ -145,7 +148,7 @@ export class GroupAddComponent implements OnInit {
   public changeCity(e){
     const temp = this.cities.map(a =>{ if(a.name === e.target.value){return a}else return
     }).filter((value)=>{return value !== undefined});
-    this.city = temp[0];
+    this.city = temp[0].name;
     this.groupAddFormGroup.get('newGroup').get('city').setValue(e.target.value,{onlySelf:true});
     this.groupAddFormGroup.get('newGroup').get('maxUsers').setValue(this.chosenCategory?.basicMaxUsers,{onlySelf:true})
   }

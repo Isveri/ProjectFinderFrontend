@@ -15,10 +15,9 @@ import {Report} from '../../domain/Report';
 import {CustomNotification} from '../../domain/CustomNotification';
 import {EditGroupComponent} from './edit-group/edit-group.component';
 import {InGameRoles} from '../../domain/dto/InGameRoles';
-import {Overlay, OverlayRef} from "@angular/cdk/overlay";
+import {OverlayRef} from "@angular/cdk/overlay";
 import {MiniProfilOverlayService} from "../../services/mini-profil-overlay.service";
 import {UserPreviewOverlayRef} from "../other-user-profile/mini-profilev2/user-preview-overlay-ref";
-import {debounceTime, fromEvent} from "rxjs";
 
 
 @Component({
@@ -40,13 +39,9 @@ export class GroupShowComponent implements OnInit, OnDestroy {
   inGameRoles = [];
   inGameRolesMap = new Map();
   currentUser: User;
-  isOpen: boolean;
-  private overlayRef: OverlayRef;
   public dialogRef: UserPreviewOverlayRef;
   overlayOpen:boolean;
   @ViewChild('img-responsive img-thumbnail mt-1') private overlayElem: ElementRef;
-  miniProfileUser: User;
-  timeoutId: any;
   constructor(private groupRoomService: GroupRoomService,
               private alertService: AlertService,
               private userService: UserService,
@@ -62,7 +57,6 @@ export class GroupShowComponent implements OnInit, OnDestroy {
     this.overlayOpen=false;
     this.id = +this.route.snapshot.paramMap.get('id');
     this.source = this.alertService.getSource()
-    // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.source.addEventListener('message', message => this.notificationMethod(message))
     this.dialog.closeAll();
 

@@ -10,9 +10,9 @@ export class User {
   public email: string;
   public name: string;
   public info:string;
-  public age:number;
+  public age:string;
   public city:string;
-  public phone:number;
+  public phone:string;
   public groupRooms: GroupRoom[];
   public role: Role;
   public inGameRoles: InGameRoles[];

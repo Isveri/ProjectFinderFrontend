@@ -79,8 +79,8 @@ export class UserProfileComponent implements OnInit {
           [Validators.minLength(2),Validators.pattern('^[a-zA-Z]{2,20}$')]),
         email: new FormControl('', [Validators.minLength(2), Validators.pattern('[a-z0-9.+-]+@[a-z0-9.-]+\\.[a-z]{2,}$')]),
         city: new FormControl('', [Validators.minLength(2)]),
-        age: new FormControl('', [Validators.min(1),Validators.max(150)]),
-        phone: new FormControl('', [Validators.minLength(9), Validators.pattern('^[0-9]*$'), Validators.maxLength(9)]),
+        age: new FormControl('', [Validators.min(1),Validators.max(100)]),
+        phone: new FormControl('', [Validators.minLength(9), Validators.pattern('^[0-9]{9}$'), Validators.maxLength(9)]),
         info: new FormControl('', [Validators.minLength(5), Validators.maxLength(150),Validators.pattern('^[a-zA-Z0-9.,\\s]{3,150}$')])
 
 
@@ -116,7 +116,7 @@ export class UserProfileComponent implements OnInit {
       } else if (this.profileEditForm.get('editUserProfile').get('city').errors !== null) {
         this.alertService.error('Minimum 2 letters for city')
       } else if (this.profileEditForm.get('editUserProfile').get('age').errors !== null) {
-        this.alertService.error('Age can be from 0-999')
+        this.alertService.error('Age can be from 0-100')
       } else if (this.profileEditForm.get('editUserProfile').get('phone').errors !== null) {
         this.alertService.error('Phone number must be 9 digits ')
       } else if (this.profileEditForm.get('editUserProfile').get('info').errors !== null) {
@@ -236,6 +236,5 @@ export class UserProfileComponent implements OnInit {
     }).filter((value)=>{return value !== undefined});
     this.city = temp[0];
     this.profileEditForm.get('editUserProfile').get('city').setValue(e.target.value,{onlySelf:true});
-    //this.groupAddFormGroup.get('newGroup').get('maxUsers').setValue(this.chosenCategory?.basicMaxUsers,{onlySelf:true})
   }
 }

@@ -6,9 +6,9 @@ export class UserDTO{
   public username:string;
   public name:string;
   public info:string;
-  public age:number;
+  public age:string;
   public email:string;
-  public phone:number;
+  public phone:string;
   public city:string;
   public inGameRoles: InGameRoles[];
   public platforms:Platform[];
