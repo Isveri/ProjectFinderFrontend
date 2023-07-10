@@ -49,5 +49,8 @@ export class ChangePasswordComponent implements OnInit {
         }
       )
     }
-  }
+    else {
+        this.alertService.error("Password must contain upper case letter, special char and number")
+      }
+    }
 }

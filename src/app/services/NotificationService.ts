@@ -11,11 +11,10 @@ export class NotificationService {
   }
 
   public getAllNotifications(){
-    return this.http.get(this.url+'/all')
+    return this.http.get(this.url)
   }
 
   public removeNotification(notifId){
-    console.log(notifId+" - NOTIFASDAD")
-    return this.http.delete(this.url+'/delete/'+notifId)
+    return this.http.delete(this.url+'/'+notifId)
   }
 }

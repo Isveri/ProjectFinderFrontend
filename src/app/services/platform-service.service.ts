@@ -12,7 +12,7 @@ export class PlatformServiceService {
 
 
   getUserDCData(token, tokenType) {
-    return this.http.get(this.baseUrl+"/connectDC?accessToken="+token+"&tokenType="+tokenType,
+    return this.http.get(this.baseUrl+"/dc?accessToken="+token+"&tokenType="+tokenType,
       {headers:{
           authorization: tokenType +' '+token,
         }}

@@ -78,19 +78,19 @@ export class AuthService {
   }
 
   confirmDelete(token:string){
-    return this.http.get(this.baseUrl+"/deleteAccountConfirm?token="+token)
+    return this.http.delete(this.baseUrl+"/confirm?token="+token)
   }
 
   confirmRegister(token:string){
-    return this.http.get(this.baseUrl+"/confirmAccountRegister?token="+token)
+    return this.http.get(this.baseUrl+"/confirm/register?token="+token)
   }
 
   changeEmail(email:EmailDto){
-    return this.http.patch(this.baseUrl+"/emailChange",email)
+    return this.http.patch(this.baseUrl+"/email",email)
   }
 
   confirmEmailChange(token:string){
-    return this.http.get(this.baseUrl + "/confirmEmailChange?token="+token)
+    return this.http.get(this.baseUrl + "/confirm/email?token="+token)
   }
 
 

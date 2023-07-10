@@ -15,13 +15,13 @@ import {InGameRoles} from '../domain/dto/InGameRoles';
 export class UserService {
 
   changePasswordUrl = 'http://localhost:9090/api/v1/auth/password-change';
-  deleteUserUrl = 'http://localhost:9090/api/v1/auth/delete-user';
-  editUserUrl = 'http://localhost:9090/api/v1/users/edit'
+  deleteUserUrl = 'http://localhost:9090/api/v1/auth/';
   baseURL = 'http://localhost:9090/api/v1/users'
   reportUrl = 'http://localhost:9090/api/v1/reports'
   adminUrl = 'http://localhost:9090/api/v1/admin'
   friendsUrl = 'http://localhost:9090/api/v1/friends'
-  usersGroupUrl = "http://localhost:9090/api/v1/userGroups"
+  usersGroupUrl = "http://localhost:9090/api/v1/user-groups"
+  chatUrl = "http://localhost:9090/api/v1/chat"
   reportedUsers:ReportedUser[];
 
   private pictureSubject = new Subject<any>();
@@ -39,7 +39,7 @@ export class UserService {
   editUser(user:User): Observable<any>{
     const headers = {'content-type': 'application/json'}
     const body = JSON.stringify(user);
-  return this.http.put(this.editUserUrl,body,{headers});
+  return this.http.put(this.baseURL,body,{headers});
   }
 
   getUser():Observable<User>{
@@ -49,21 +49,16 @@ export class UserService {
     return this.http.delete(this.deleteUserUrl);
   }
   getUserGroups() {
-    return this.http.get<User>(this.usersGroupUrl+'/all')
-  }
-  getUserGroupsByGame(gameId:number){
-    return this.http.get<User>(this.usersGroupUrl+'/my-groups/'+gameId)
+    return this.http.get<User>(this.usersGroupUrl)
   }
 
   joinGroup(groupId:number,inGameRole:InGameRoles){
-    console.log(inGameRole+"-ROLA")
-    return this.http.patch<User>(this.usersGroupUrl + '/join/' + groupId,inGameRole,{ observe: 'response' });
+    return this.http.patch<User>(this.usersGroupUrl + '/' + groupId,inGameRole,{ observe: 'response' });
   }
 
 
   leaveGroup(groupId: number) {
-    const url = this.usersGroupUrl + '/exit/' + groupId;
-
+    const url = this.usersGroupUrl + '/' + groupId;
     return this.http.delete(url);
   }
 
@@ -74,10 +69,10 @@ export class UserService {
   uploadProfilePicture(file:any):Observable<any>{
     const formData = new FormData();
     formData.append('profilePicture',file,file.name);
-    return this.http.patch(this.baseURL+'/profilePicture',formData)
+    return this.http.post(this.baseURL+'/profile/picture',formData)
   }
   getProfilePicture(userId:number):Observable<any>{
-    return this.http.get(this.baseURL+'/profilePicture/'+userId,{responseType: 'blob'});
+    return this.http.get(this.baseURL+'/profile/picture/'+userId,{responseType: 'blob'});
   }
   prepareProfilePicture(data:any){
     if (data.size===0) {
@@ -123,61 +118,61 @@ export class UserService {
   }
 
   reportUser(report:Report,userId:number){
-    return this.http.put(this.reportUrl+'/report/'+userId,report)
+    return this.http.post(this.reportUrl+'/'+userId,report)
   }
 
   getBannedUsers(){
-    return this.http.get(this.adminUrl+'/banned')
+    return this.http.get(this.adminUrl+'/users/banned')
   }
 
   unbanUser(id:number){
-    return this.http.get(this.adminUrl+'/unban/'+id)
+    return this.http.patch(this.adminUrl+'/users/banned/'+id,null)
   }
 
   banUser(id:number, reason:string){
-    return this.http.put(this.adminUrl+'/banUser',{id,reason})
+    return this.http.put(this.adminUrl+'/banned',{id,reason})
   }
 
   getUserChatLogs(userId:number){
-    return this.http.get(this.baseURL+'/chatLogs/'+userId)
+    return this.http.get(this.chatUrl+'/user/logs/'+userId)
   }
 
   getReportedUsers(){
-    return this.http.get(this.adminUrl+'/reportedUsers')
+    return this.http.get(this.adminUrl+'/users/reported')
   }
   deleteReports(user){
-    return this.http.delete(this.adminUrl+'/deleteReports/'+user.id)
+    return this.http.delete(this.reportUrl+'/'+user.id)
   }
 
   sendFriendRequest(user){
-    return this.http.post(this.friendsUrl+'/sendFriendRequest/'+user.id,{})
+    return this.http.post(this.friendsUrl+'/requests/'+user.id,{})
   }
 
   getFriendRequests(){
-    return this.http.get(this.friendsUrl+'/loadFriendRequests')
+    return this.http.get(this.friendsUrl+'/requests')
   }
 
   acceptFriendRequest(requestId:number){
-    return this.http.put(this.friendsUrl+'/acceptFriendRequest/'+requestId,{})
+    return this.http.put(this.friendsUrl+'/requests/accept/'+requestId,{})
   }
   declineFriendRequest(requestId:number){
-    return this.http.put(this.friendsUrl+'/declineFriendRequest/'+requestId,{})
+    return this.http.put(this.friendsUrl+'/requests/decline/'+requestId,{})
   }
 
   getFriends(){
-    return this.http.get(this.friendsUrl+'/loadFriends')
+    return this.http.get(this.friendsUrl+'/')
   }
 
   setMessagesAsRead(chatId:number){
-    return this.http.patch("http://localhost:9090/api/v1/messageRead/"+chatId,{})
+    return this.http.patch(this.chatUrl+"/messages/"+chatId,{})
   }
 
   countUnreadMessages(){
-    return this.http.get("http://localhost:9090/api/v1/unreadMessages")
+    return this.http.get(this.chatUrl+"/messages")
   }
 
   getChatMessages(chatId){
-    return this.http.get("http://localhost:9090/api/v1/chat/"+chatId)
+    return this.http.get(this.chatUrl+"/"+chatId)
   }
 
 

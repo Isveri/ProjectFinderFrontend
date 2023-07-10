@@ -1,1 +1,4 @@
-<p *ngFor="let msg of messages">{{msg?.user?.username}}:{{msg.time}} -- {{msg.text}}</p>
+<div>
+  <h2>Deleted group chat logs</h2>
+  <p *ngFor="let msg of messages">{{msg?.user?.username}}:{{msg?.time}} -- {{msg.text}}</p>
+</div>

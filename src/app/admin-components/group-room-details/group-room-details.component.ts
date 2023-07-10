@@ -85,7 +85,7 @@ export class GroupRoomDetailsComponent implements OnInit, OnDestroy {
   removeGroupRoom(){
     this.groupRoomService.deleteGroup(this.groupRoomId).subscribe(()=>{
       this.router.navigateByUrl('/admin/admin-main-page').then(()=>
-        this.alertService.success("Group "+this.groupRoom.name+" has beenremoved")
+        this.alertService.success("Group "+this.groupRoom.name+" has been removed")
       )
     },(e)=>{
       this.alertService.error(CodeErrors.get(e.error.code))
@@ -94,7 +94,7 @@ export class GroupRoomDetailsComponent implements OnInit, OnDestroy {
 
 
   loadChatLogs(){
-    this.groupRoomService.getChatLongs(this.groupRoomId).subscribe((data:any)=>{
+    this.groupRoomService.getChatLogs(this.groupRoomId).subscribe((data:any)=>{
       this.messages = data;
     },(e)=>{
       this.alertService.error(CodeErrors.get(e));

@@ -121,7 +121,7 @@ export class FriendlistComponent implements OnInit {
           });
         this.chosenFriend = friend;
         this.ngOnInit();
-        this.stompClient.subscribe('/topic/privateMessages/' + chatId,
+        this.stompClient.subscribe('/topic/private/' + chatId,
           (chatMessage) => {
             this.userService.setMessagesAsRead(this.currentChatId)
               .subscribe();
@@ -171,7 +171,7 @@ export class FriendlistComponent implements OnInit {
 
   sendMsg(chatId: number) {
     // tslint:disable-next-line:max-line-length
-    this.stompClient.send('/app/privateChat/' + chatId, {}, JSON.stringify(this.message));
+    this.stompClient.send('/app/private/' + chatId, {}, JSON.stringify(this.message));
     this.message.text = '';
   }
 
