@@ -175,6 +175,10 @@ export class UserService {
     return this.http.get(this.chatUrl+"/"+chatId)
   }
 
+  removeFriend(friendId:number){
+    return this.http.delete(this.friendsUrl+"/"+friendId);
+  }
+
 
 }
 

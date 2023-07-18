@@ -17,17 +17,24 @@
   </button>
   <h6 class="mb-4">Total: {{friendsNumber}}</h6>
   <div class="card textMode" *ngFor="let friend of friendList">
-    <div class="friend-card container" (click)="connectPrivateChat(friend)">
-      <div class="row mt-1">
-      <div class="col-md-3 justify-content-center">
-        <img class=" card-img mt-1" alt="icon" [src]="profilePictures.get(friend.user.id)"
-             style="height: 65px;width: 65px">
+    <div class="friend-card container">
+      <div class="justify-content-end">
+        <p style="display: block;text-align: right;margin-bottom: 0"><img alt="icon"  src="assets/img/remove.png" (click)="removeFriend(friend.id)"
+             style="height: 15px;width: 15px;"></p>
       </div>
-      <div class="col-md-6 ">
-        <span *ngIf="unreadMessages.get(friend.user.id)!=0" matBadge="{{unreadMessages.get(friend.user.id)}}"></span>
-        <h4>{{friend.user?.username}}</h4>
-        <h5>Click to open private chat</h5>
-      </div>
+      <div (click)="connectPrivateChat(friend)">
+        <div class="row mt-1">
+          <div class="col-md-3 justify-content-center">
+            <img class=" card-img mt-1" alt="icon" [src]="profilePictures.get(friend.user.id)"
+                 style="height: 65px;width: 65px">
+          </div>
+          <div class="col-md-6 ">
+            <span *ngIf="unreadMessages.get(friend.user.id)!=0"
+                  matBadge="{{unreadMessages.get(friend.user.id)}}"></span>
+            <h4>{{friend.user?.username}}</h4>
+            <h5>Click to open private chat</h5>
+          </div>
+        </div>
       </div>
     </div>
     <div class="card-body bg-chat pl-0 pr-0 pb-0"

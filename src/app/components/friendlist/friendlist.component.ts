@@ -175,5 +175,8 @@ export class FriendlistComponent implements OnInit {
     this.message.text = '';
   }
 
+  removeFriend(friendId: number) {
+    this.userService.removeFriend(friendId).subscribe();
+  }
 
 }
