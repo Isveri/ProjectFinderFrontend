@@ -215,11 +215,13 @@ export class GroupShowComponent implements OnInit, OnDestroy {
     const report = new Report();
     report.reason = reason;
     this.currentGroup.users.forEach((user) => {
-      this.userService.reportUser(report, user.id).subscribe(() => {
-        this.alertService.success('Group reported')
-      }, (e) => {
-        this.alertService.success('Group reported')
-      })
+      if(this.currentUser.id !== user.id) {
+        this.userService.reportUser(report, user.id).subscribe(() => {
+          this.alertService.success('Group reported')
+        }, (e) => {
+          this.alertService.success('Group reported')
+        })
+      }
     })
   }
 

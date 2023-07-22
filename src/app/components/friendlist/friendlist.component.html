@@ -19,7 +19,7 @@
   <div class="card textMode" *ngFor="let friend of friendList">
     <div class="friend-card container">
       <div class="justify-content-end">
-        <p style="display: block;text-align: right;margin-bottom: 0"><img alt="icon"  src="assets/img/remove.png" (click)="removeFriend(friend.id)"
+        <p style="display: block;text-align: right;margin-bottom: 0"><img alt="icon"  src="assets/img/remove.png" (click)="removeFriend(friend.user.id)"
              style="height: 15px;width: 15px;"></p>
       </div>
       <div (click)="connectPrivateChat(friend)">
