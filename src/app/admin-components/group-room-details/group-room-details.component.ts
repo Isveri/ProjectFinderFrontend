@@ -116,11 +116,11 @@ export class GroupRoomDetailsComponent implements OnInit, OnDestroy {
 
 
   connect(){
-    console.log("TEST")
     const headers={
       'Authorization': 'Bearer ' + this.authService.getToken(),
-      'groupId': this.groupRoom?.id
+      'chatId': this.groupRoom?.chatId
     }
+
     if(this.isConnected===false) {
       this.stompClient = Stomp.over(()=>{
         return new SockJS('http://localhost:9090/ws',headers)

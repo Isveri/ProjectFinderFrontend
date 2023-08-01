@@ -59,7 +59,7 @@ export class ChatComponent implements OnInit,OnChanges,OnDestroy {
   connectOn(){
     const headers={
       'Authorization': 'Bearer ' + this.authService.getToken(),
-      'groupId': this.groupRoom?.id
+      'chatId': this.groupRoom?.chatId
     }
     if(this.isInGroup && this.isConnected===false) {
       this.stompClient = Stomp.over(()=>{

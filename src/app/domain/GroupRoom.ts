@@ -18,4 +18,5 @@ export class GroupRoom{
   public game:GameDTO;
   public city:string;
   public joinCode:string;
+  public chatId:number;
 }
